@@ -1,0 +1,19 @@
+Total_Income = l_approved[ApplicantIncome]+l_approved[CoapplicantIncome]
+
+Total Applications = COUNTROWS('l_approved')
+
+Total Approved = CALCULATE(COUNTROWS('l_approved'), 'l_approved'[Loan_Status]="Y")
+
+Approval Rate % = DIVIDE([Total Approved], [Total Applications]) * 100
+
+Average Loan Amount = AVERAGE('l_approved'[LoanAmount])
+
+Average Total Income = AVERAGE('l_approved'[Total_Income])
+
+Income_Group = 
+SWITCH(
+    TRUE(),
+    'l_approved'[Total_Income] < 3000, "Low Income",
+    'l_approved'[Total_Income] >= 3000 && 'l_approved'[Total_Income] < 7000, "Medium Income",
+    "High Income"
+)
